@@ -1,6 +1,6 @@
 {
 	"name": "@brikcss/stakcss",
-	"version": "0.0.1",
+	"version": "0.0.0",
 	"description": "Stakcss takes a \"stak\" of files or data, runs them through a series of bundlers (not included), and outputs bundled data, optionally saved to disk.",
 	"author": "BrikCSS <https://github.com/brikcss>",
 	"contributors": [

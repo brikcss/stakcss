@@ -18,7 +18,7 @@
 	</a>
 	<!-- Codacy. -->
 	<a href="https://www.codacy.com/app/thezimmee/stakcss">
-		<img alt="NPM version" src="https://img.shields.io/codacy/grade/49af7ce4215c4720a6dbc90c3b7fcdbe/master.svg?style=flat-square">
+		<img alt="NPM version" src="https://img.shields.io/codacy/grade/28adee991e004621b2a9bece53370661/master.svg?style=flat-square">
 	</a>
 	<!-- Coveralls -->
 	<a href='https://coveralls.io/github/brikcss/stakcss?branch=master'>
