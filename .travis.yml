@@ -18,13 +18,10 @@ node_js: '8'
 before_script: npm prune -d
 script: npm run test -d
 deploy:
-  provider: script
+  provider: npm
+  email: thezimmee@gmail.com
+  api_key: $NPM_TOKEN
   skip_cleanup: true
-  script:
-    - npm version minor -d
-    - npm publish -d
-  # script:
-  #   - npx semantic-release
 
 branches:
   only:

@@ -1,4 +1,4 @@
-/*! /usr/bin/env node */
+#! /usr/bin/env node
 /** ------------------------------------------------------------------------------------------------
  *  @filename  stakcss-cli.js
  *  @author  brikcss  <https://github.com/brikcss>

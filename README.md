@@ -1,6 +1,6 @@
 # Stakcss
 
-> Stakcss takes a "stak" of files or data, runs them through a series of bundlers (not included), and outputs bundled data, optionally saved to disk. Stakcss works similarly to tools like webpack, rollup, and postcss. The primary difference is that, where webpack and rollup bundle JavaScript, postcss compiles stylesheets, Stakcss can bundle or compile any type of file or content. Alone Stakcss doesn't do much, but in concert with bundlers it can do almost anything your heart desires.
+> Stakcss takes a "stak" of files or data, runs them through a "stak" of bundlers (not included), and outputs bundled data, optionally saved to disk. Stakcss works similarly to tools like webpack, rollup, and postcss. The primary difference is that, where webpack and rollup bundle JavaScript, postcss compiles stylesheets, Stakcss can bundle or compile any type of file or content. Alone Stakcss doesn't do much, but in concert with bundlers it can do almost anything your heart desires.
 
 <!-- Shields. -->
 <p>
