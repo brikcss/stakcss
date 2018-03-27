@@ -1,0 +1,16 @@
+### ------------------------------------------------------------------------------------------------
+##  @filename  .gitignore
+##  @author  brikcss  <https://github.com/brikcss>
+##  @description  https://git-scm.com/docs/gitignore
+### ------------------------------------------------------------------------------------------------
+
+# Node
+/node_modules/
+
+# MacOS
+/.DS_Store
+
+# Repo
+/.nyc_output/
+/coverage/
+/dist/
