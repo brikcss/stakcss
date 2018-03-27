@@ -9,7 +9,7 @@
 // Set up environment.
 //
 const stak = require('../lib/stakcss.js');
-const config = require('minimist')(process.argv.slice(1), {
+const config = require('minimist')(process.argv.slice(2), {
 	boolean: true,
 	alias: {
 		output: 'O',
@@ -20,6 +20,7 @@ const config = require('minimist')(process.argv.slice(1), {
 		stakEachFile: 'E'
 	}
 });
+config.source = config._;
 config.cli = true;
 
 // ------------

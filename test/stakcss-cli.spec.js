@@ -45,7 +45,7 @@ describe('stakcss-cli()', () => {
 
 	it('bundles `source` from a glob.', () => {
 		const result = exec(
-			`node ${cliPath} --source=test/fixtures/sample1/**/* --output=.temp/one.md --bundlers=./test/fixtures/runners/concat.js`
+			`node ${cliPath} test/fixtures/sample1/**/* --output=.temp/one.md --bundlers=./test/fixtures/runners/concat.js`
 		);
 		assert.equal(result.code, 0);
 		assert.equal(
@@ -56,7 +56,7 @@ describe('stakcss-cli()', () => {
 
 	it('bundles `source` from a glob and outputs separate files.', () => {
 		const result = exec(
-			`node ${cliPath} --source=test/fixtures/sample1/**/* --output=.temp/ --bundlers=./test/fixtures/runners/concat.js`
+			`node ${cliPath} test/fixtures/sample1/**/* --output=.temp/ --bundlers=./test/fixtures/runners/concat.js`
 		);
 		assert.equal(result.code, 0);
 		['sample.md', 'sample.js'].forEach((filepath) => {
