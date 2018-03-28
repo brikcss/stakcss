@@ -38,7 +38,22 @@ describe('stak()', () => {
 	});
 
 	it('runs with a config file.', () => {
-		return bundle({ config: 'test/fixtures/.stakcssrc.js' }).then((result) => {
+		return bundle({ config: 'test/fixtures/configs/.stakcssrc.js' }).then((result) => {
+			assert.equal(result.config.content, 'I am content from .brik-bundler.js');
+			assert.equal(result.config.testing, 'test');
+			assert.deepEqual(result.config.array, [1, 2]);
+			assert.equal(
+				fs.readFileSync('.temp/test.md', 'utf8'),
+				'I am content from .brik-bundler.js'
+			);
+		});
+	});
+
+	it('runs with a config file and a profile', () => {
+		return bundle({
+			config: 'test/fixtures/configs/.stakcssrc-profiles.js',
+			profile: 'one'
+		}).then((result) => {
 			assert.equal(result.config.content, 'I am content from .brik-bundler.js');
 			assert.equal(result.config.testing, 'test');
 			assert.deepEqual(result.config.array, [1, 2]);

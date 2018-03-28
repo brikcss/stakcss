@@ -1,6 +1,6 @@
 {
 	"name": "@brikcss/stakcss",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Stakcss takes a \"stak\" of files or data, runs them through a series of bundlers (not included), and outputs bundled data, optionally saved to disk.",
 	"author": "BrikCSS <https://github.com/brikcss>",
 	"contributors": [
@@ -50,11 +50,12 @@
 	},
 	"scripts": {
 		"start": "npm run test:unit -- --watch",
-		"ci": "concurrently \"npm run test:lint\" \"npm run test:coverage\"",
-		"test": "concurrently \"npm run test:lint\" \"npm run test:unit\"",
+		"ci": "concurrently \"npm run test:lint\" \"npm run test:coverage && npm run test:report\"",
+		"test": "concurrently \"npm run test:lint\" \"npm run test:coverage\"",
 		"test:lint": "node ./node_modules/.bin/eslint ./{lib,bin}/*.js && echo \"\n[ok] Linter complete.\n\"",
 		"test:unit": "node ./node_modules/.bin/mocha \"./test/*.spec.js\" --reporter=mocha-better-spec-reporter --colors",
-		"test:coverage": "nyc --reporter=lcov --reporter=text mocha \"./test/*.spec.js\" --recursive && concurrently \"cat coverage/lcov.info | codacy-coverage\" \"cat coverage/lcov.info | coveralls\"",
+		"test:coverage": "nyc --reporter=lcov --reporter=text mocha \"./test/*.spec.js\" --recursive",
+		"test:report": "concurrently \"cat coverage/lcov.info | codacy-coverage\" \"cat coverage/lcov.info | coveralls\"",
 		"semantic-release": "semantic-release"
 	},
 	"devDependencies": {

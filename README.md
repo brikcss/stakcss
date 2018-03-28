@@ -96,6 +96,11 @@ Stakcss provides an API to run files or content through a series of bundlers. Se
 - **`cwd`** _{String}_ Source paths will be relative to this directory.
 - **`rename`** _{Function}_ (via Node or config file) Callback to allow user to rename output files. Useful when `output` is a directory.
 - **`config`** _{String}_ Path to config file.
+- **`profile`** _{String}_ Property in config file to use for config. This allows the config file to run multiple profiles. Example:
+	```sh
+	# Uses the `js` property in the config file.
+	stak --config=<path> --profile=js
+	```
 - **`stakEachFile`** _{Boolean}_ Whether to treat each file as its own stak.
 - **`watch`** _{Boolean}_ Watch source file paths and "restak" when they change.
 

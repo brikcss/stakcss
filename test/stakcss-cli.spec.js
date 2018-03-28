@@ -24,7 +24,18 @@ describe('stakcss-cli()', () => {
 	});
 
 	it('runs with a config file.', () => {
-		const result = exec(`node ${cliPath} --config=test/fixtures/.stakcssrc.js`);
+		const result = exec(`node ${cliPath} --config=test/fixtures/configs/.stakcssrc.js`);
+		assert.equal(result.code, 0);
+		assert.equal(
+			fs.readFileSync('.temp/test.md', 'utf8'),
+			'I am content from .brik-bundler.js'
+		);
+	});
+
+	it('runs with a config file and a profile.', () => {
+		const result = exec(
+			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js --profile=one`
+		);
 		assert.equal(result.code, 0);
 		assert.equal(
 			fs.readFileSync('.temp/test.md', 'utf8'),
