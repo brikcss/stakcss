@@ -85,23 +85,41 @@ Stakcss provides an API to run files or content through a series of bundlers. Se
 ### Options
 
 - **`source`** _{String | Array | Glob}_ Source file paths.
+
 - **`content`** _{String}_ Source content.
-- **`output`** _{String}_ Output path.
+
+- **`output`** _{String}_ Output path. _Note: If this is directory (either '/' as last character or an actual directory), OR if it contains `[name]` or `[ext]`, then `stakEachFile` is automatically set to true and each file is treated as its own stak. `[name]` and `[ext]` provide the template for the output path. See `stakEachFile` for more details._
+
 - **`bundlers`** _{Array | String}_ list of bundlers to bundle the stak with. A _{String}_ should be a comma-separated list of paths to the bundler's `run` function. Each bundler can be any of the following:
+
 	- _{String}_ path which is `require`d, same as any node module.
 	- _{Function}_ (via Node or config file) which is run on each stak.
 	- _{Object}_ (via Node or config file) where:
 		- **`bundler.run`** is the function to be run on each stak.
 		- **`bundler.*`** can be provided by user for bundler configuration. The `bundler` object is passed to each stak (see [creating a bundler](#creating-a-bundler)).
+
 - **`cwd`** _{String}_ Source paths will be relative to this directory.
+
 - **`rename`** _{Function}_ (via Node or config file) Callback to allow user to rename output files. Useful when `output` is a directory.
+
 - **`config`** _{String}_ Path to config file.
+
 - **`profile`** _{String}_ Property in config file to use for config. This allows the config file to run multiple profiles. Example:
+
 	```sh
 	# Uses the `js` property in the config file.
 	stak --config=<path> --profile=js
 	```
-- **`stakEachFile`** _{Boolean}_ Whether to treat each file as its own stak.
+
+- **`stakEachFile`** _{Boolean}_ Whether to treat each file as its own stak. This option is automatically set to `true` if:
+
+	- `output` ends with `/`.
+	- `output` is a directory.
+	- `output` contains `[name]`.
+
+	_`output` path template:_
+	When `stakEachFile` is true and `output` exists, Stakcss replaces `[name]` and `[ext]` with source file path's `name` and `ext`. If `[name]` is not found in `output`, `output` is set to `path.join(output, '[name].[ext]')`.
+
 - **`watch`** _{Boolean}_ Watch source file paths and "restak" when they change.
 
 _Note: Some options, as noted above, are not available via the CLI unless you use a config file._

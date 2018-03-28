@@ -77,4 +77,17 @@ describe('stakcss-cli()', () => {
 			);
 		});
 	});
+
+	it('outputs separate files and renames with [name] and [ext].', () => {
+		const result = exec(
+			`node ${cliPath} test/fixtures/sample1/**/* --output=.temp/test-[name].[ext] --bundlers=./test/fixtures/runners/concat.js`
+		);
+		assert.equal(result.code, 0);
+		['sample.md', 'sample.js'].forEach((filepath) => {
+			assert.equal(
+				fs.readFileSync(path.join('.temp/', 'test-' + filepath), 'utf8'),
+				fs.readFileSync(path.join('test/fixtures/sample1', filepath), 'utf8')
+			);
+		});
+	});
 });

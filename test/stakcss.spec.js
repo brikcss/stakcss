@@ -116,7 +116,7 @@ describe('stak()', () => {
 		});
 	});
 
-	it('bundles `source` from a glob and outputs separate files.', () => {
+	it('bundles `source` from a glob and outputs separate files with `stakEachFile`.', () => {
 		return bundle({
 			source: 'test/fixtures/sample1/**/*',
 			output: '.temp/test1',
@@ -143,6 +143,25 @@ describe('stak()', () => {
 			filepaths.forEach((filepath) => {
 				assert.equal(
 					fs.readFileSync(path.join('.temp/test1', filepath), 'utf8'),
+					fs.readFileSync(path.join('test/fixtures/sample1', filepath), 'utf8')
+				);
+			});
+		});
+	});
+
+	it('outputs multiple files and renames them with `rename` callback.', () => {
+		return bundle({
+			source: 'test/fixtures/sample1',
+			output: '.temp/test1/',
+			rename(filepath) {
+				return path.join(path.dirname(filepath), 'test' + path.extname(filepath));
+			},
+			bundlers: [copyBundler]
+		}).then(() => {
+			const filepaths = ['sample.md', 'sample.js'];
+			filepaths.forEach((filepath) => {
+				assert.equal(
+					fs.readFileSync('.temp/test1/test' + path.extname(filepath), 'utf8'),
 					fs.readFileSync(path.join('test/fixtures/sample1', filepath), 'utf8')
 				);
 			});
