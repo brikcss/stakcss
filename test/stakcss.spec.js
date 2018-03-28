@@ -52,7 +52,7 @@ describe('stak()', () => {
 	it("returns content even if `output` doesn't exist.", () => {
 		return bundle({
 			content: 'Testing, testing...',
-			bundlers: '../test/fixtures/runners/sample2.js'
+			bundlers: './test/fixtures/runners/sample2.js'
 		}).then((result) => {
 			assert.equal(result.config.content, 'Testing sample2.js');
 		});
@@ -77,7 +77,7 @@ describe('stak()', () => {
 					}
 				},
 				{
-					run: '../test/fixtures/runners/sample1.js',
+					run: './test/fixtures/runners/sample1.js',
 					options: {
 						two: 2
 					}
@@ -188,7 +188,7 @@ describe('stak()', () => {
 			source: ['test/fixtures/sample1/sample.md', 'test/fixtures/sample1/sample.js'],
 			output: '.temp/sample.md',
 			cwd: 'test/fixtures',
-			bundlers: '../test/fixtures/runners/sample2.js, ../test/fixtures/runners/sample3.js'
+			bundlers: './test/fixtures/runners/sample2.js, ./test/fixtures/runners/sample3.js'
 		}).then((result) => {
 			assert.equal(result.config.content, 'Testing sample2.js\nTesting sample3.js');
 			assert.equal(
