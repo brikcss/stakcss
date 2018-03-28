@@ -210,6 +210,23 @@ describe('stak()', () => {
 			result.watcher.close();
 		});
 	});
+
+	it('runs bundlers with node_modules', () => {
+		return bundle({
+			source: 'test/fixtures/sample1/**/*',
+			output: '.temp/',
+			bundlers: ['@brikcss/stakcss-bundler-copy']
+		}).then(() => {
+			assert.equal(
+				fs.readFileSync('.temp/sample.md', 'utf8'),
+				fs.readFileSync('test/fixtures/sample1/sample.md', 'utf8')
+			);
+			assert.equal(
+				fs.readFileSync('.temp/sample.js', 'utf8'),
+				fs.readFileSync('test/fixtures/sample1/sample.js', 'utf8')
+			);
+		});
+	});
 });
 
 function copyBundler(config) {

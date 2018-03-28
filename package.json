@@ -59,6 +59,7 @@
 	},
 	"devDependencies": {
 		"@brikcss/git-hooks": "1.x",
+		"@brikcss/stakcss-bundler-copy": "0.x",
 		"@brikcss/watcher-cli": "0.x",
 		"@commitlint/cli": "6.x",
 		"codacy-coverage": "2.x",
