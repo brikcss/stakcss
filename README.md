@@ -122,6 +122,8 @@ Stakcss provides an API to run files or content through a series of bundlers. Se
 
 - **`watch`** _{Boolean}_ Watch source file paths and "restak" when they change.
 
+- **`watchPaths`** _{Glob}_ Additional path(s) to watch when running the watcher. These paths do not get bundled, but when they change they will trigger a rebundle. It may be useful to include files in the watcher that the source files depend on.
+
 _Note: Some options, as noted above, are not available via the CLI unless you use a config file._
 
 ## Creating a bundler
