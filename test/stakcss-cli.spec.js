@@ -6,7 +6,9 @@ const fs = require('fs-extra');
 const path = require('path');
 const cliPath = 'bin/stakcss-cli.js';
 
-describe('stakcss-cli()', () => {
+describe('stakcss-cli()', function() {
+	this.timeout(3000);
+
 	afterEach(() => {
 		rm.sync('.temp');
 	});
