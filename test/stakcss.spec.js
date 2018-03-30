@@ -37,6 +37,16 @@ describe('stak()', () => {
 		});
 	});
 
+	it('fails if source paths do not exist', () => {
+		return bundle({
+			source: 'test/i/dont/exist/*',
+			output: '.temp/one.md',
+			bundlers: [copyBundler]
+		}).then((result) => {
+			assert.ok(!result.success);
+		});
+	});
+
 	it('runs with a config file.', () => {
 		return bundle({ config: 'test/fixtures/configs/.stakcssrc.js' }).then((result) => {
 			assert.equal(result.config.content, 'I am content from .brik-bundler.js');
