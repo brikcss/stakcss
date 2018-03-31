@@ -1,5 +1,5 @@
 module.exports = {
-	content: 'I am content from .brik-bundler.js',
+	content: 'I am content from .stakcssrc.js',
 	output: './.temp/test.md',
 	bundlers: [
 		(config = {}) => {

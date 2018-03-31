@@ -11,11 +11,15 @@ describe('stak()', () => {
 	});
 
 	it("fails if `source` and `content` don't exist.", () => {
-		assert.throws(() => bundle({ output: './.temp' }));
+		return bundle({ output: './.temp' }).then((result) => {
+			assert.ok(result instanceof Error);
+		});
 	});
 
 	it('fails if `bundlers` does not exist.', () => {
-		assert.throws(() => bundle({ content: 'Testing, testing...', output: './.temp' }));
+		return bundle({ content: 'Testing, testing...', output: './.temp' }).then((result) => {
+			assert.ok(result instanceof Error);
+		});
 	});
 
 	it('fails if a bundler returns an invalid config object.', () => {
@@ -49,41 +53,84 @@ describe('stak()', () => {
 
 	it('runs with a config file.', () => {
 		return bundle({ config: 'test/fixtures/configs/.stakcssrc.js' }).then((result) => {
-			assert.equal(result.config.content, 'I am content from .brik-bundler.js');
+			assert.equal(result.config.content, 'I am content from .stakcssrc.js');
 			assert.equal(result.config.testing, 'test');
 			assert.deepEqual(result.config.array, [1, 2]);
 			assert.equal(
 				fs.readFileSync('.temp/test.md', 'utf8'),
-				'I am content from .brik-bundler.js'
+				'I am content from .stakcssrc.js'
 			);
 		});
 	});
 
-	it('runs with a config file and a named `stak`', () => {
+	it('runs a config profile', () => {
 		return bundle({
-			config: 'test/fixtures/configs/.stakcssrc-staks.js',
-			stak: 'one'
+			config: 'test/fixtures/configs/.stakcssrc-profiles.js',
+			profiles: 'one'
 		}).then((result) => {
-			assert.equal(result.config.content, 'I am content from .brik-bundler.js');
-			assert.equal(result.config.testing, 'test');
+			assert.equal(result.config.content, 'I am content from .stakcssrc-profiles.js:one');
+			assert.equal(result.config.testing, 'one');
 			assert.deepEqual(result.config.array, [1, 2]);
 			assert.equal(
-				fs.readFileSync('.temp/test.md', 'utf8'),
-				'I am content from .brik-bundler.js'
+				fs.readFileSync('.temp/one.md', 'utf8'),
+				'I am content from .stakcssrc-profiles.js:one'
 			);
 		});
 	});
 
-	it('runs with `config: <path>:<stak>`', () => {
+	it('runs a profile with `config: <path>:<profiles>`', () => {
 		return bundle({
-			config: 'test/fixtures/configs/.stakcssrc-staks.js:one'
+			config: 'test/fixtures/configs/.stakcssrc-profiles.js',
+			profiles: ['one', 'two']
+		}).then((results) => {
+			assert.equal(results[0].config.content, 'I am content from .stakcssrc-profiles.js:one');
+			assert.equal(results[0].config.testing, 'one');
+			assert.deepEqual(results[0].config.array, [1, 2]);
+			assert.equal(
+				fs.readFileSync('.temp/one.md', 'utf8'),
+				'I am content from .stakcssrc-profiles.js:one'
+			);
+			assert.equal(results[1].config.content, 'I am content from .stakcssrc-profiles.js:two');
+			assert.equal(results[1].config.testing, 'two');
+			assert.deepEqual(results[1].config.array, [1, 2]);
+			assert.equal(
+				fs.readFileSync('.temp/two.md', 'utf8'),
+				'I am content from .stakcssrc-profiles.js:two'
+			);
+		});
+	});
+
+	it('runs all profiles with `config: <path>:all`', () => {
+		return bundle({
+			config: 'test/fixtures/configs/.stakcssrc-profiles.js:all'
+		}).then((results) => {
+			assert.equal(results[0].config.content, 'I am content from .stakcssrc-profiles.js:one');
+			assert.equal(results[0].config.testing, 'one');
+			assert.deepEqual(results[0].config.array, [1, 2]);
+			assert.equal(
+				fs.readFileSync('.temp/one.md', 'utf8'),
+				'I am content from .stakcssrc-profiles.js:one'
+			);
+			assert.equal(results[1].config.content, 'I am content from .stakcssrc-profiles.js:two');
+			assert.equal(results[1].config.testing, 'two');
+			assert.deepEqual(results[1].config.array, [1, 2]);
+			assert.equal(
+				fs.readFileSync('.temp/two.md', 'utf8'),
+				'I am content from .stakcssrc-profiles.js:two'
+			);
+		});
+	});
+
+	it('runs multiple profiles with `config: <path>:<profile>`', () => {
+		return bundle({
+			config: 'test/fixtures/configs/.stakcssrc-profiles.js:one'
 		}).then((result) => {
-			assert.equal(result.config.content, 'I am content from .brik-bundler.js');
-			assert.equal(result.config.testing, 'test');
+			assert.equal(result.config.content, 'I am content from .stakcssrc-profiles.js:one');
+			assert.equal(result.config.testing, 'one');
 			assert.deepEqual(result.config.array, [1, 2]);
 			assert.equal(
-				fs.readFileSync('.temp/test.md', 'utf8'),
-				'I am content from .brik-bundler.js'
+				fs.readFileSync('.temp/one.md', 'utf8'),
+				'I am content from .stakcssrc-profiles.js:one'
 			);
 		});
 	});

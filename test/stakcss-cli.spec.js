@@ -16,43 +16,74 @@ describe('stakcss-cli()', function() {
 	it("fails if `source` and `content` don't exist.", () => {
 		const result = exec(`node ${cliPath} --output=.temp`);
 		assert.ok(result.stderr);
-		assert.equal(result.code, 1);
 	});
 
 	it('fails if `bundlers` does not exist.', () => {
 		const result = exec(`node ${cliPath} --content="Testing, testing..." --output=.temp`);
 		assert.ok(result.stderr);
-		assert.equal(result.code, 1);
 	});
 
 	it('runs with a config file.', () => {
 		const result = exec(`node ${cliPath} --config=test/fixtures/configs/.stakcssrc.js`);
 		assert.equal(result.code, 0);
-		assert.equal(
-			fs.readFileSync('.temp/test.md', 'utf8'),
-			'I am content from .brik-bundler.js'
-		);
+		assert.equal(fs.readFileSync('.temp/test.md', 'utf8'), 'I am content from .stakcssrc.js');
 	});
 
-	it('runs with a config file and a named `stak`.', () => {
+	it('runs a config profile.', () => {
 		const result = exec(
-			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-staks.js --stak=one`
+			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js --profiles=one`
 		);
 		assert.equal(result.code, 0);
 		assert.equal(
-			fs.readFileSync('.temp/test.md', 'utf8'),
-			'I am content from .brik-bundler.js'
+			fs.readFileSync('.temp/one.md', 'utf8'),
+			'I am content from .stakcssrc-profiles.js:one'
 		);
 	});
 
-	it('runs with `--config=<path>:<stak>`.', () => {
+	it('runs with `--config=true` and `--cwd=<path>`', () => {
+		const result = exec(`node ${cliPath} --config --cwd=./test/fixtures/configs`);
+		assert.equal(result.code, 0);
+		assert.equal(fs.readFileSync('.temp/test.md', 'utf8'), 'I am content from .stakcssrc.js');
+	});
+
+	it('runs a profile with `--config=<path>:<profile>`.', () => {
 		const result = exec(
-			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-staks.js:one`
+			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js:one`
 		);
 		assert.equal(result.code, 0);
 		assert.equal(
-			fs.readFileSync('.temp/test.md', 'utf8'),
-			'I am content from .brik-bundler.js'
+			fs.readFileSync('.temp/one.md', 'utf8'),
+			'I am content from .stakcssrc-profiles.js:one'
+		);
+	});
+
+	it('runs multiple profiles with `--config=<path>:<profiles>`.', () => {
+		const results = exec(
+			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js:one,two`
+		);
+		assert.equal(results.code, 0);
+		assert.equal(
+			fs.readFileSync('.temp/one.md', 'utf8'),
+			'I am content from .stakcssrc-profiles.js:one'
+		);
+		assert.equal(
+			fs.readFileSync('.temp/two.md', 'utf8'),
+			'I am content from .stakcssrc-profiles.js:two'
+		);
+	});
+
+	it('runs all profiles with `--config=<path>:all`', () => {
+		const results = exec(
+			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js:all`
+		);
+		assert.equal(results.code, 0);
+		assert.equal(
+			fs.readFileSync('.temp/one.md', 'utf8'),
+			'I am content from .stakcssrc-profiles.js:one'
+		);
+		assert.equal(
+			fs.readFileSync('.temp/two.md', 'utf8'),
+			'I am content from .stakcssrc-profiles.js:two'
 		);
 	});
 

@@ -98,26 +98,36 @@ Stakcss provides an API to run files or content through a series of bundlers. Se
 		- **`bundler.run`** is the function to be run on each stak.
 		- **`bundler.*`** can be provided by user for bundler configuration. The `bundler` object is passed to each stak (see [creating a bundler](#creating-a-bundler)).
 
-- **`root`** _{String}_ Source paths will be relative to this directory.
+- **`root`** _{String}_ Source paths will be output relative to this directory.
+
+- **`cwd`** _{String}_ Current working directory. Affects bundler path resolution and default search path for the config file.
 
 - **`rename`** _{Function}_ (via Node or config file) Callback to allow user to rename output files. Useful when `output` is a directory.
 
-- **`config`** _{String}_ Path to config file.
-
-- **`stak`** _{String}_ Property in config file to use for config. This allows the config file to run multiple profiles. Example:
+- **`config`** _{String}_ Path to config file. You can also use the shorthand syntax to set the config path and `profiles` to run at the same time. For example:
 
 	```sh
-	# Uses the `js` property in the config file.
-	stak --config=<path> --stak=js
+	stak --config=<path>:<profiles>
+	```
+
+- **`profiles`** _{String | Array}_ The config file can be set up to run multiple "profiles". In this case, each property name in the config file is a config profile. This option is passed to tell Stakcss which profile(s) to run. An array or comma-separated list will run multiple profiles. Or setting this property to `all` will run all profiles.
+
+	```sh
+	stak --config=<path> --profiles=<profiles>
+	```
+
+	```sh
+	# Run all profiles in the config file.
+	stak --config=<path> --profiles=all
 	```
 
 	You may also use the shorthand version with the `config` option as follows:
 
 	```sh
-	stak --config=<path>:<stak>
+	stak --config=<path>:<profiles>
 	```
 
-- **`id`** _{String}_ ID of stak, used in log notifications. If not explicitly provided, will default to `stak` or base name of `output`.
+- **`id`** _{String}_ ID or name of stak, used in log notifications. Defaults to profile property name, if exists, or the profile index.
 
 - **`stakEachFile`** _{Boolean}_ Whether to treat each file as its own stak. This option is automatically set to `true` if:
 
