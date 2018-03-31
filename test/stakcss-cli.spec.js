@@ -45,6 +45,17 @@ describe('stakcss-cli()', function() {
 		);
 	});
 
+	it('runs with `--config=<path>:<stak>`.', () => {
+		const result = exec(
+			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-staks.js:one`
+		);
+		assert.equal(result.code, 0);
+		assert.equal(
+			fs.readFileSync('.temp/test.md', 'utf8'),
+			'I am content from .brik-bundler.js'
+		);
+	});
+
 	it('runs with bundlers option', () => {
 		const result = exec(
 			`node ${cliPath} --content="Testing, testing..." --bundlers="./test/fixtures/runners/sample2.js, ./test/fixtures/runners/sample3.js" --output=.temp/sample.js`

@@ -74,6 +74,20 @@ describe('stak()', () => {
 		});
 	});
 
+	it('runs with `config: <path>:<stak>`', () => {
+		return bundle({
+			config: 'test/fixtures/configs/.stakcssrc-staks.js:one'
+		}).then((result) => {
+			assert.equal(result.config.content, 'I am content from .brik-bundler.js');
+			assert.equal(result.config.testing, 'test');
+			assert.deepEqual(result.config.array, [1, 2]);
+			assert.equal(
+				fs.readFileSync('.temp/test.md', 'utf8'),
+				'I am content from .brik-bundler.js'
+			);
+		});
+	});
+
 	it("returns content even if `output` doesn't exist.", () => {
 		return bundle({
 			content: 'Testing, testing...',
