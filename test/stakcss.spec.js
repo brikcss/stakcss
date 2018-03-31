@@ -223,11 +223,11 @@ describe('stak()', () => {
 		});
 	});
 
-	it('bundles `source` files and outputs relative to `cwd`.', () => {
+	it('bundles `source` files and outputs relative to `root`.', () => {
 		return bundle({
 			source: ['test/fixtures/sample1/sample.md', 'test/fixtures/sample1/sample.js'],
 			output: '.temp/',
-			cwd: 'test/fixtures',
+			root: 'test/fixtures',
 			bundlers: [copyBundler]
 		}).then(() => {
 			assert.equal(
@@ -245,7 +245,7 @@ describe('stak()', () => {
 		return bundle({
 			source: ['test/fixtures/sample1/sample.md', 'test/fixtures/sample1/sample.js'],
 			output: '.temp/sample.md',
-			cwd: 'test/fixtures',
+			root: 'test/fixtures',
 			bundlers: './test/fixtures/runners/sample2.js, ./test/fixtures/runners/sample3.js'
 		}).then((result) => {
 			assert.equal(result.config.content, 'Testing sample2.js\nTesting sample3.js');
