@@ -34,9 +34,9 @@ describe('stakcss-cli()', function() {
 		);
 	});
 
-	it('runs with a config file and a profile.', () => {
+	it('runs with a config file and a named `stak`.', () => {
 		const result = exec(
-			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js --profile=one`
+			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-staks.js --stak=one`
 		);
 		assert.equal(result.code, 0);
 		assert.equal(

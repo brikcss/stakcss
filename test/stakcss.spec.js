@@ -59,10 +59,10 @@ describe('stak()', () => {
 		});
 	});
 
-	it('runs with a config file and a profile', () => {
+	it('runs with a config file and a named `stak`', () => {
 		return bundle({
-			config: 'test/fixtures/configs/.stakcssrc-profiles.js',
-			profile: 'one'
+			config: 'test/fixtures/configs/.stakcssrc-staks.js',
+			stak: 'one'
 		}).then((result) => {
 			assert.equal(result.config.content, 'I am content from .brik-bundler.js');
 			assert.equal(result.config.testing, 'test');
