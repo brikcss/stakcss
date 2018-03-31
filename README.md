@@ -98,18 +98,26 @@ Stakcss provides an API to run files or content through a series of bundlers. Se
 		- **`bundler.run`** is the function to be run on each stak.
 		- **`bundler.*`** can be provided by user for bundler configuration. The `bundler` object is passed to each stak (see [creating a bundler](#creating-a-bundler)).
 
-- **`cwd`** _{String}_ Source paths will be relative to this directory.
+- **`root`** _{String}_ Source paths will be relative to this directory.
 
 - **`rename`** _{Function}_ (via Node or config file) Callback to allow user to rename output files. Useful when `output` is a directory.
 
 - **`config`** _{String}_ Path to config file.
 
-- **`profile`** _{String}_ Property in config file to use for config. This allows the config file to run multiple profiles. Example:
+- **`stak`** _{String}_ Property in config file to use for config. This allows the config file to run multiple profiles. Example:
 
 	```sh
 	# Uses the `js` property in the config file.
-	stak --config=<path> --profile=js
+	stak --config=<path> --stak=js
 	```
+
+	You may also use the shorthand version with the `config` option as follows:
+
+	```sh
+	stak --config=<path>:<stak>
+	```
+
+- **`id`** _{String}_ ID of stak, used in log notifications. If not explicitly provided, will default to `stak` or base name of `output`.
 
 - **`stakEachFile`** _{Boolean}_ Whether to treat each file as its own stak. This option is automatically set to `true` if:
 
