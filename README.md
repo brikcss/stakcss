@@ -90,13 +90,15 @@ Stakcss provides an API to run files or content through a series of bundlers. Se
 
 - **`output`** _{String}_ Output path. _Note: If this is directory (either '/' as last character or an actual directory), OR if it contains `[name]` or `[ext]`, then `stakEachFile` is automatically set to true and each file is treated as its own stak. `[name]` and `[ext]` provide the template for the output path. See `stakEachFile` for more details._
 
-- **`bundlers`** _{Array | String}_ list of bundlers to bundle the stak with. A _{String}_ should be a comma-separated list of paths to the bundler's `run` function. Each bundler can be any of the following:
+- **`bundlers`** _{Array | String}_ List of bundlers to run the stak through. A _{String}_ should be a comma-separated list. Each bundler can be any of the following:
 
-	- _{String}_ path which is `require`d, same as any node module.
+	- _{String}_ path to node module, which is `require`d like any other node module.
 	- _{Function}_ (via Node or config file) which is run on each stak.
 	- _{Object}_ (via Node or config file) where:
 		- **`bundler.run`** is the function to be run on each stak.
 		- **`bundler.*`** can be provided by user for bundler configuration. The `bundler` object is passed to each stak (see [creating a bundler](#creating-a-bundler)).
+
+	_Note: Stakcss Bundler module names should be prefixed with `stakcss-bundler-`. For convenience, when referencing bundlers by name in the `bundlers` setting, you may optionally remove `stakcss-bundler-` from the name and Stakcss will still pick the module up. For example: `bundlers: ['@brikcss/stakcss-bundler-copy']` and `bundlers: ['@brikcss/copy']` will both pick run the `@brikcss/stakcss-bundler-copy` bundler._
 
 - **`root`** _{String}_ Source paths will be output relative to this directory.
 
