@@ -13,40 +13,13 @@ describe('stakcss-cli()', function() {
 		rm.sync('.temp');
 	});
 
-	it("fails if `source` and `content` don't exist.", () => {
-		const result = exec(`node ${cliPath} --output=.temp`);
-		assert.ok(result.stderr);
-	});
-
-	it('fails if `bundlers` does not exist.', () => {
-		const result = exec(`node ${cliPath} --content="Testing, testing..." --output=.temp`);
-		assert.ok(result.stderr);
-	});
-
-	it('runs with a config file.', () => {
-		const result = exec(`node ${cliPath} --config=test/fixtures/configs/.stakcssrc.js`);
-		assert.equal(result.code, 0);
-		assert.equal(fs.readFileSync('.temp/test.md', 'utf8'), 'I am content from .stakcssrc.js');
-	});
-
-	it('runs a config profile.', () => {
-		const result = exec(
-			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js --profiles=one`
-		);
-		assert.equal(result.code, 0);
-		assert.equal(
-			fs.readFileSync('.temp/one.md', 'utf8'),
-			'I am content from .stakcssrc-profiles.js:one'
-		);
-	});
-
 	it('runs with `--config=true` and `--cwd=<path>`', () => {
 		const result = exec(`node ${cliPath} --config --cwd=./test/fixtures/configs`);
 		assert.equal(result.code, 0);
 		assert.equal(fs.readFileSync('.temp/test.md', 'utf8'), 'I am content from .stakcssrc.js');
 	});
 
-	it('runs a profile with `--config=<path>:<profile>`.', () => {
+	it('runs a profile with `--config=<path>:<profiles>`.', () => {
 		const result = exec(
 			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js:one`
 		);
@@ -72,21 +45,6 @@ describe('stakcss-cli()', function() {
 		);
 	});
 
-	it('runs all profiles with `--config=<path>:all`', () => {
-		const results = exec(
-			`node ${cliPath} --config=test/fixtures/configs/.stakcssrc-profiles.js:all`
-		);
-		assert.equal(results.code, 0);
-		assert.equal(
-			fs.readFileSync('.temp/one.md', 'utf8'),
-			'I am content from .stakcssrc-profiles.js:one'
-		);
-		assert.equal(
-			fs.readFileSync('.temp/two.md', 'utf8'),
-			'I am content from .stakcssrc-profiles.js:two'
-		);
-	});
-
 	it('runs with bundlers option', () => {
 		const result = exec(
 			`node ${cliPath} --content="Testing, testing..." --bundlers="./test/fixtures/runners/sample2.js, ./test/fixtures/runners/sample3.js" --output=.temp/sample.js`
@@ -95,17 +53,6 @@ describe('stakcss-cli()', function() {
 		assert.equal(
 			fs.readFileSync('.temp/sample.js', 'utf8'),
 			'Testing sample2.js\nTesting sample3.js'
-		);
-	});
-
-	it('bundles `source` from a glob.', () => {
-		const result = exec(
-			`node ${cliPath} test/fixtures/sample1/**/* --output=.temp/one.md --bundlers=./test/fixtures/runners/concat.js`
-		);
-		assert.equal(result.code, 0);
-		assert.equal(
-			fs.readFileSync('.temp/one.md', 'utf8'),
-			fs.readFileSync('test/expected/concatenated.md', 'utf8')
 		);
 	});
 

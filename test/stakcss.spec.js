@@ -78,7 +78,7 @@ describe('stak()', () => {
 		});
 	});
 
-	it('runs a profile with `config: <path>:<profiles>`', () => {
+	it('runs multiple profiles with `config: <path>:<profiles>`', () => {
 		return bundle({
 			config: 'test/fixtures/configs/.stakcssrc-profiles.js',
 			profiles: ['one', 'two']
@@ -117,20 +117,6 @@ describe('stak()', () => {
 			assert.equal(
 				fs.readFileSync('.temp/two.md', 'utf8'),
 				'I am content from .stakcssrc-profiles.js:two'
-			);
-		});
-	});
-
-	it('runs multiple profiles with `config: <path>:<profile>`', () => {
-		return bundle({
-			config: 'test/fixtures/configs/.stakcssrc-profiles.js:one'
-		}).then((result) => {
-			assert.equal(result.config.content, 'I am content from .stakcssrc-profiles.js:one');
-			assert.equal(result.config.testing, 'one');
-			assert.deepEqual(result.config.array, [1, 2]);
-			assert.equal(
-				fs.readFileSync('.temp/one.md', 'utf8'),
-				'I am content from .stakcssrc-profiles.js:one'
 			);
 		});
 	});
