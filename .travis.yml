@@ -16,7 +16,7 @@ env: NODE_ENV=test
 
 node_js: '8'
 before_script: npm prune -d
-script: npm run test -d
+script: npm run ci -d
 deploy:
   provider: npm
   email: thezimmee@gmail.com

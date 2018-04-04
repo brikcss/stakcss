@@ -55,7 +55,7 @@
 		"test:lint": "node ./node_modules/.bin/eslint ./{lib,bin}/*.js && echo \"\n[ok] Linter complete.\n\"",
 		"test:unit": "node ./node_modules/.bin/mocha \"./test/*.spec.js\" --reporter=mocha-better-spec-reporter --colors",
 		"test:coverage": "nyc --reporter=lcov --reporter=text mocha \"./test/*.spec.js\" --recursive",
-		"test:report": "concurrently \"cat coverage/lcov.info | codacy-coverage\" \"cat coverage/lcov.info | coveralls\"",
+		"test:report": "concurrently \"cat coverage/lcov.info | codacy-coverage --token=$CODACY_PROJECT_TOKEN\" \"nyc report --reporter=text-lcov | coveralls\"",
 		"semantic-release": "semantic-release"
 	},
 	"devDependencies": {

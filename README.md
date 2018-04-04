@@ -16,11 +16,15 @@
 	<a href="https://github.com/brikcss/stakcss/tree/master">
 		<img alt="Travis branch" src="https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square&label=master">
 	</a>
-	<!-- Codacy. -->
+	<!-- Codacy grade. -->
 	<a href="https://www.codacy.com/app/thezimmee/stakcss">
 		<img alt="NPM version" src="https://img.shields.io/codacy/grade/28adee991e004621b2a9bece53370661/master.svg?style=flat-square">
 	</a>
-	<!-- Coveralls -->
+	<!-- Codacy coverage. -->
+	<a class="badge-align" href="https://www.codacy.com/app/thezimmee/stakcss">
+		<img src="https://img.shields.io/codacy/coverage/28adee991e004621b2a9bece53370661/master.svg?style=flat-square"/>
+	</a>
+	<!-- Coveralls coverage. -->
 	<a href='https://coveralls.io/github/brikcss/stakcss?branch=master'>
 		<img src='https://img.shields.io/coveralls/github/brikcss/stakcss/master.svg?style=flat-square' alt='Coverage Status' />
 	</a>
