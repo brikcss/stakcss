@@ -45,6 +45,30 @@ describe('stakcss-cli()', function() {
 		);
 	});
 
+	it('runs a config with NODE_ENV=development', () => {
+		exec(
+			`NODE_ENV=development node ${cliPath} --config=test/fixtures/configs/.stakcssrc-envs.js:all`
+		);
+		assert.equal(
+			fs.readFileSync('.temp/one.js', 'utf8'),
+			'I am content from .stakcssrc-envs.js:development'
+		);
+	});
+
+	it('runs a config with NODE_ENV=production', () => {
+		exec(
+			`NODE_ENV=production node ${cliPath} --config=test/fixtures/configs/.stakcssrc-envs.js:all`
+		);
+		assert.equal(
+			fs.readFileSync('.temp/one.js', 'utf8'),
+			'I am content from .stakcssrc-envs.js:production'
+		);
+		assert.equal(
+			fs.readFileSync('.temp/one.min.js', 'utf8'),
+			'I am content from .stakcssrc-envs.js:production:minified'
+		);
+	});
+
 	it('runs with bundlers option', () => {
 		const result = exec(
 			`node ${cliPath} --content="Testing, testing..." --bundlers="./test/fixtures/runners/sample2.js, ./test/fixtures/runners/sample3.js" --output=.temp/sample.js`
