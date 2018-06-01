@@ -1,6 +1,6 @@
 {
 	"name": "@brikcss/stakcss",
-	"version": "0.7.2",
+	"version": "0.8.0",
 	"description": "Stakcss takes a \"stak\" of files or data, runs them through a series of bundlers (not included), and outputs bundled data, optionally saved to disk.",
 	"author": "BrikCSS <https://github.com/brikcss>",
 	"contributors": [
@@ -59,26 +59,26 @@
 		"semantic-release": "semantic-release"
 	},
 	"devDependencies": {
-		"@brikcss/git-hooks": "1.x",
-		"@brikcss/stakcss-bundler-copy": "0.x",
-		"@commitlint/cli": "6.x",
-		"codacy-coverage": "2.x",
-		"concurrently": "3.x",
-		"coveralls": "3.x",
-		"mocha": "5.x",
-		"mocha-better-spec-reporter": "3.x",
-		"nyc": "11.x",
-		"rimraf": "2.x",
-		"semantic-release": "15.x",
-		"shelljs": "0.x"
+		"@brikcss/git-hooks": "1.0.9",
+		"@brikcss/stakcss-bundler-copy": "0.1.0",
+		"@commitlint/cli": "6.2.0",
+		"codacy-coverage": "3.0.0",
+		"concurrently": "3.5.1",
+		"coveralls": "3.0.1",
+		"mocha": "5.2.0",
+		"mocha-better-spec-reporter": "3.1.0",
+		"nyc": "12.0.1",
+		"rimraf": "2.6.2",
+		"semantic-release": "15.5.0",
+		"shelljs": "0.8.2"
 	},
 	"dependencies": {
-		"@brikcss/merge": "1.x",
-		"@brikcss/timer": "1.x",
-		"chokidar": "2.x",
-		"cosmiconfig": "4.x",
-		"fs-extra": "5.x",
-		"globby": "8.x",
-		"loglevel": "1.x"
+		"@brikcss/merge": "1.0.7",
+		"@brikcss/timer": "1.0.4",
+		"chokidar": "2.0.3",
+		"cosmiconfig": "5.0.5",
+		"fs-extra": "6.0.1",
+		"globby": "8.0.1",
+		"loglevel": "1.6.1"
 	}
 }
