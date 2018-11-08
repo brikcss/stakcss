@@ -59,25 +59,25 @@
 		"semantic-release": "semantic-release"
 	},
 	"devDependencies": {
-		"@brikcss/git-hooks": "1.0.9",
+		"@brikcss/git-hooks": "1.2.0",
 		"@brikcss/stakcss-bundler-copy": "0.1.0",
-		"@commitlint/cli": "6.2.0",
-		"codacy-coverage": "3.0.0",
-		"concurrently": "3.5.1",
-		"coveralls": "3.0.1",
+		"@commitlint/cli": "7.2.1",
+		"codacy-coverage": "3.2.0",
+		"concurrently": "4.0.1",
+		"coveralls": "3.0.2",
 		"mocha": "5.2.0",
 		"mocha-better-spec-reporter": "3.1.0",
-		"nyc": "12.0.1",
+		"nyc": "13.1.0",
 		"rimraf": "2.6.2",
-		"semantic-release": "15.5.0",
+		"semantic-release": "15.10.8",
 		"shelljs": "0.8.2"
 	},
 	"dependencies": {
 		"@brikcss/merge": "1.0.7",
 		"@brikcss/timer": "1.0.4",
-		"chokidar": "2.0.3",
-		"cosmiconfig": "5.0.5",
-		"fs-extra": "6.0.1",
+		"chokidar": "2.0.4",
+		"cosmiconfig": "5.0.7",
+		"fs-extra": "7.0.1",
 		"globby": "8.0.1",
 		"loglevel": "1.6.1"
 	}
