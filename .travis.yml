@@ -26,6 +26,7 @@ deploy:
 branches:
   only:
     - master
+    - /^greenkeeper/.*$/
 # branches:
 #   except:
 #     - /^v\d+\.\d+\.\d+$/
