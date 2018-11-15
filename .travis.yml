@@ -33,6 +33,7 @@ deploy:
 branches:
   only:
     - master
+    - /^greenkeeper/.*$/
 # Semantic release to NPM and GitHub.
 # branches:
 #   except:
