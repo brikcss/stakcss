@@ -1,6 +1,6 @@
 # Stakcss
 
-> Stakcss takes a "stak" of files or data, runs them through a "stak" of bundlers (not included), and outputs bundled data, optionally saved to disk. Stakcss works similarly to tools like webpack, rollup, and postcss. The primary difference is that, where webpack and rollup bundle JavaScript, postcss compiles stylesheets, Stakcss can bundle or compile any type of file or content. Alone Stakcss doesn't do much, but in concert with bundlers it can do almost anything your heart desires.
+> Stakcss takes a "stak" of files or input, runs it all through a "stak" of configured bundlers (not included), and outputs compiled result, optionally saving to disk. Stakcss works similarly to tools like webpack, rollup, and postcss. The primary difference is that Stakcss can bundle or compile any type of file or content, where others only bundle one specific. Alone Stakcss doesn't do much, but in concert with bundlers it can do almost anything your heart desires.
 
 <!-- Shields. -->
 <p>
@@ -46,13 +46,11 @@
 	</a> -->
 </p>
 
-
-
 ## Environment support
 
-| Node   | CLI   | UMD   | ES Module | Browser   |
-|:------:|:-----:|:-----:|:---------:|:---------:|
-| ✔      | ✔     | x    | x         | x         |
+| Node | ES Module | Browser | UMD | CLI |
+| :--: | :-------: | :-----: | :-: | :-: |
+|  ✓   |     x     |    x    |  x  |  ✓  |
 
 ## Install
 
@@ -65,84 +63,77 @@ npm install @brikcss/stakcss --save-dev
 Just to be clear:
 
 - _Stakcss_: This bundler tool.
-- _bundler_: A function which bundles a "stak" of files or content chunks.
-- _stak (as a noun)_: A "stack" of source files or content chunks to be bundled.
-- _bundle (as a noun)_: The resulting/bundled/compiled file or content from being run through Stakcss.
-- _bundle / stak (as a verb)_: The process of bundling/compiling _staks_ into _bundles_.
+- _stak (noun)_: A "stack" of source files or content chunks to be bundled, or processed, in a desired manner.
+- _bundler_: A function which processes a "stak" of files or content chunks in a specific way. Each stak can be run through one or more bundlers to achieve a desired result.
+- _bundle (noun)_: The output returned by the bundler(s).
+- _bundle / stak (verb)_: The process of running one or more _staks_ through a series of one or more _bundlers_ to be output to a single bundle.
 
 ## Usage
 
 Stakcss provides an API to run files or content through a series of bundlers. See below for [creating a bundler](#creating-a-bundler). You may bundle a stak in Node or the command line:
 
 - Node:
-	```js
-	const stak = require('@brikcss/stakcss');
-	stak(options);
-	```
+  `js const stak = require('@brikcss/stakcss'); stak(options);`
 - CLI:
-	```sh
-	stak <source files> [options]
-	# or:
-	node node_modules/.bin/stak <source files> [options]
-	```
+  `sh stak <source files> [options] # or: node node_modules/.bin/stak <source files> [options]`
 
 ### Options
 
-- **`source`** _{String | Array | Glob}_ Source file paths.
+- **`source`** _{String | Array | Glob}_ (_required_) Source file paths.
 
 - **`content`** _{String}_ Source content.
 
-- **`output`** _{String}_ Output path. _Note: If this is directory (either '/' as last character or an actual directory), OR if it contains `[name]` or `[ext]`, then `stakEachFile` is automatically set to true and each file is treated as its own stak. `[name]` and `[ext]` provide the template for the output path. See `stakEachFile` for more details._
+- **`output`** _{String}_ (_required_) Output path. _Note: If this is directory (either '/' as last character or an actual directory), OR if it contains `[name]` or `[ext]`, then `stakEachFile` is automatically set to true and each file is treated as its own stak. `[name]` and `[ext]` provide the template for the output path. See `stakEachFile` for more details._
 
-- **`bundlers`** _{Array | String}_ List of bundlers to run the stak through. A _{String}_ should be a comma-separated list. Each bundler can be any of the following:
+- **`bundlers`** _{Array | String}_ (_required_) List of bundlers to run the stak through. A _{String}_ should be a comma-separated list. Each bundler can be any of the following:
 
-	- _{String}_ path to node module, which is `require`d like any other node module.
-	- _{Function}_ (via Node or config file) which is run on each stak.
-	- _{Object}_ (via Node or config file) where:
-		- **`bundler.run`** is the function to be run on each stak.
-		- **`bundler.*`** can be provided by user for bundler configuration. The `bundler` object is passed to each stak (see [creating a bundler](#creating-a-bundler)).
+      	- _{String}_ path to node module, which is `require`d like any other node module.
+      	- _{Function}_ (via Node or config file) which is run on each stak.
+      	- _{Object}_ (via Node or config file) where:
+      		- **`bundler.run`** is the function to be run on each stak.
+      		- **`bundler.*`** can be provided by user for bundler configuration. The `bundler` object is passed to each stak (see [creating a bundler](#creating-a-bundler)).
 
-	_Note: Stakcss Bundler module names should be prefixed with `stakcss-bundler-`. For convenience, when referencing bundlers by name in the `bundlers` setting, you may optionally remove `stakcss-bundler-` from the name and Stakcss will still pick the module up. For example: `bundlers: ['@brikcss/stakcss-bundler-copy']` and `bundlers: ['@brikcss/copy']` will both pick run the `@brikcss/stakcss-bundler-copy` bundler._
+      	_Note: Stakcss Bundler module names should be prefixed with `stakcss-bundler-`. For convenience, when referencing bundlers by name in the `bundlers` setting, you may optionally remove `stakcss-bundler-` from the name and Stakcss will still pick the module up. For example: `bundlers: ['@brikcss/stakcss-bundler-copy']` and `bundlers: ['@brikcss/copy']` will both pick run the `@brikcss/stakcss-bundler-copy` bundler._
 
-- **`root`** _{String}_ Source paths will be output relative to this directory.
+- **`root`** _{String}_ (`.`) Source paths will be output relative to this directory.
 
-- **`cwd`** _{String}_ Current working directory. Affects bundler path resolution and default search path for the config file.
+- **`cwd`** _{String}_ (`process.cwd()`) Current working directory. Affects bundler path resolution and default search path for the config file.
 
 - **`rename`** _{Function}_ (via Node or config file) Callback to allow user to rename output files. Useful when `output` is a directory.
 
 - **`config`** _{String}_ Path to config file. You can also use the shorthand syntax to set the config path and `profiles` to run at the same time. For example:
 
-	```sh
-	stak --config=<path>:<profiles>
-	```
+      	```sh
+      	stak --config=<path>:<profiles>
+      	```
 
 - **`profiles`** _{String | Array}_ The config file can be set up to run multiple "profiles". In this case, each property name in the config file is a config profile. This option is passed to tell Stakcss which profile(s) to run. An array or comma-separated list will run multiple profiles. Or setting this property to `all` will run all profiles.
 
-	```sh
-	stak --config=<path> --profiles=<profiles>
-	```
+      	```sh
+      	stak --config=<path> --profiles=<profiles>
+      	```
 
-	```sh
-	# Run all profiles in the config file.
-	stak --config=<path> --profiles=all
-	```
+      	```sh
+      	# Run all profiles in the config file.
+      	stak --config=<path> --profiles=all
+      	```
 
-	You may also use the shorthand version with the `config` option as follows:
+      	You may also use the shorthand version with the `config` option as follows:
 
-	```sh
-	stak --config=<path>:<profiles>
-	```
+      	```sh
+      	stak --config=<path>:<profiles>
+      	```
 
 - **`id`** _{String}_ ID or name of stak, used in log notifications. Defaults to profile property name, if exists, or the profile index.
 
-- **`stakEachFile`** _{Boolean}_ Whether to treat each file as its own stak. This option is automatically set to `true` if:
+- **`stakEachFile`** _{Boolean}_ (`false`) Whether to treat each file as its own stak. This option is automatically set to `true` if:
 
-	- `output` ends with `/`.
-	- `output` is a directory.
-	- `output` contains `[name]`.
+      	- `output` ends with `/`.
+      	- `output` is a directory.
+      	- `output` contains `[name]`.
 
-	_`output` path template:_
-	When `stakEachFile` is true and `output` exists, Stakcss replaces `[name]` and `[ext]` with source file path's `name` and `ext`. If `[name]` is not found in `output`, `output` is set to `path.join(output, '[name].[ext]')`.
+      	_`output` path template:_
+      	When `stakEachFile` is true and `output` exists, Stakcss replaces `[name]` and `[ext]` with source file path's `name` and `ext`. If `[name]` is not found in `output`, `output` is set to `path.join(output, '[name].[ext]')`.
 
 - **`watch`** _{Boolean}_ Watch source file paths and "restak" when they change.
 
@@ -158,10 +149,10 @@ Creating a bundler is easy. To illustrate, here is a simple bundler:
 const fs = require('fs-extra');
 
 module.exports = (config = {}, bundler = {}) => {
-	if (!config.content) {
-		config.source.forEach(filepath => config.content += fs.readFileSync(filepath, 'utf8'));
-	}
-	return config;
+  if (!config.content) {
+    config.source.forEach((filepath) => (config.content += fs.readFileSync(filepath, 'utf8')));
+  }
+  return config;
 };
 ```
 
@@ -172,11 +163,11 @@ This bundler copies file content from `config.source` to `config.content`, which
 
 ### Rules for creating a bundler
 
-1. Stakcss global config is provided via `config`. Bundler specific config is provided via `bundler`. Except for `config.content` and `config.sourceMap`, these should generally not be modified.
-2. **Important**: If `config.content` does not exist:
-	1. Use `config.source` to get source content.
-	2. Modify it to your heart's content.
-	3. Save it to `config.content`.
-3. You must return the `config` object with the newly bundled / transformed `config.content`.
-4. You can optionally return a `Promise`. Stakcss will keep bundler results in order.
-5. `config.sourceMap` is for use with sourcemaps.
+1.  Stakcss global config is provided via `config`. Bundler specific config is provided via `bundler`. Except for `config.content` and `config.sourceMap`, these should generally not be modified.
+2.  **Important**: If `config.content` does not exist:
+    1.  Use `config.source` to get source content.
+    2.  Modify it to your heart's content.
+    3.  Save it to `config.content`.
+3.  You must return the `config` object with the newly bundled / transformed `config.content`.
+4.  You can optionally return a `Promise`. Stakcss will keep bundler results in order.
+5.  `config.sourceMap` is for use with sourcemaps.

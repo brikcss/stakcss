@@ -1,7 +1,0 @@
-### ------------------------------------------------------------------------------------------------
-##  @filename  .eslintignore
-##  @author  brikcss  <https://github.com/brikcss>
-##  @description  https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories
-### ------------------------------------------------------------------------------------------------
-
-!.*.js
