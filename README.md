@@ -1,5 +1,7 @@
 # Stakcss
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/brikcss/stakcss.svg)](https://greenkeeper.io/)
+
 > Stakcss takes a "stak" of files or input, runs it all through a "stak" of configured bundlers (not included), and outputs compiled result, optionally saving to disk. Stakcss works similarly to tools like webpack, rollup, and postcss. The primary difference is that Stakcss can bundle or compile any type of file or content, where others only bundle one specific. Alone Stakcss doesn't do much, but in concert with bundlers it can do almost anything your heart desires.
 
 <!-- Shields. -->
