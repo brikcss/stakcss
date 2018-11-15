@@ -1,6 +1,6 @@
 {
   "name": "@brikcss/stakcss",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Stakcss takes a \"stak\" of files or data, runs them through a series of configured bundlers (not included), and outputs compiled result, optionally saving to disk.",
   "keywords": [
     "brikcss",
