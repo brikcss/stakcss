@@ -44,7 +44,7 @@
     "@brikcss/git-hooks": "^2.1.0",
     "@brikcss/stakcss-bundler-copy": "0.1.0",
     "codacy-coverage": "^3.2.0",
-    "coveralls": "^3.0.2",
+    "coveralls": "^3.0.7",
     "jest": "^23.6.0",
     "semantic-release": "15.12.0",
     "shelljs": "0.8.3"
